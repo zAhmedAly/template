@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+  <a
+    class="navbar-brand"
+    [routerLink]="['/']"
+    routerLinkActive="router-link-active"
+  >
+    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+    Dev-Camper</a
+  >
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <!-- <ul class="navbar-nav mr-auto">
+      <li
+        class="nav-item"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link" [routerLink]="['/']">Home <span></span></a>
+      </li>
+    </ul> -->
+    <ul class="navbar-nav ml-auto">
+      <li
+        class="nav-item"
+        *ngIf="authService.loggedIn()"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+        data-toggle="collapse"
+        data-target=".navbar-collapse.show"
+      >
+        <a class="nav-link" [routerLink]="['/dashboard']">
+          <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
+        </a>
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="authService.loggedIn()"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+        data-toggle="collapse"
+        data-target=".navbar-collapse.show"
+      >
+        <a class="nav-link" [routerLink]="['/profile']">
+          <i class="fa fa-user" aria-hidden="true"></i> Profile
+        </a>
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="!authService.loggedIn()"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+        data-toggle="collapse"
+        data-target=".navbar-collapse.show"
+      >
+        <a class="nav-link" [routerLink]="['/login']"
+          ><i class="fa fa-sign-in" aria-hidden="true"></i> Login
+        </a>
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="!authService.loggedIn()"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+        data-toggle="collapse"
+        data-target=".navbar-collapse.show"
+      >
+        <a class="nav-link" [routerLink]="['/register']">
+          <i class="fa fa-user-plus" aria-hidden="true"></i> Register</a
+        >
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="authService.loggedIn()"
+        data-toggle="collapse"
+        data-target=".navbar-collapse.show"
+      >
+        <a class="nav-link" (click)="onLogoutClick()" href="#">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

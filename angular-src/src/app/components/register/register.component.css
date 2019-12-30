@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  margin: auto;
+}
+
+.form-register {
+  padding: 20px;
+  background-color: darkslategrey;
+  border-radius: 5px;
+}
+
+@media screen and (min-width: 1370px) {
+  .container {
+    width: 50%;
+  }
+}
