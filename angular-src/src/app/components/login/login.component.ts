@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         const returnUrlx = localStorage.getItem('returnUrl');
         console.log('onLoginSubmit authenticateUser returnUrlx = ', returnUrlx);
 
-        const time_to_login = Date.now() + 60; // 5 min
+        const time_to_login = Date.now() + 10 * 60; // 5 min
         localStorage.setItem('timer', JSON.stringify(time_to_login));
         console.log('Inside LoginComponent ... ' + data.msg);
 
