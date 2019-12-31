@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
             timeout: 10000
           });
           this.router.navigate(['/login']);
-        }, 1 * 60 * 1000); // Auto Logoff after 1 mins
+        }, 5 * 60 * 1000); // Auto Logoff after 5 mins
         // login successful so redirect to return url
         this.router.navigateByUrl(returnUrlx);
         // this.router.navigateByUrl(this.returnUrl);

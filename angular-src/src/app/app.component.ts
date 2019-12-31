@@ -40,7 +40,7 @@ export class AppComponent {
     // console.log('Date.now() is = ', now);
     console.log('Date.now() - timer =', now - timer);
 
-    if (timer && Date.now() - timer > 1 * 60 * 1000) {
+    if (this.authService.loggedIn() && timer && Date.now() - timer > 1 * 60 * 1000) {
       // Auto Logoff after 1 mins
       console.log('Inside AppComponent ... Auto LogOut');
       this.authService.logout();
