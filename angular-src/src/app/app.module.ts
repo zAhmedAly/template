@@ -21,6 +21,7 @@ import { BootcampsComponent } from './components/bootcamps/bootcamps.component';
 import { ListBootcampComponent } from './components/bootcamp/list-bootcamp/list-bootcamp.component';
 import { AddBootcampComponent } from './components/bootcamp/add-bootcamp/add-bootcamp.component';
 import { UpdBootcampComponent } from './components/bootcamp/upd-bootcamp/upd-bootcamp.component';
+import { ManageBootcampComponent } from './components/bootcamp/manage-bootcamp/manage-bootcamp.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,6 +38,11 @@ const appRoutes: Routes = [
   {
     path: 'upd-bootcamp/:id',
     component: UpdBootcampComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'manage-bootcamp/:id',
+    component: ManageBootcampComponent,
     canActivate: [AuthGuard]
   },
 
@@ -60,7 +66,8 @@ const appRoutes: Routes = [
     BootcampsComponent,
     ListBootcampComponent,
     AddBootcampComponent,
-    UpdBootcampComponent
+    UpdBootcampComponent,
+    ManageBootcampComponent
   ],
   imports: [
     BrowserModule,

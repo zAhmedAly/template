@@ -83,10 +83,10 @@ export class LoginComponent implements OnInit {
             cssClass: 'alert-warning',
             timeout: 10000
           });
-          this.router.navigateByUrl(returnUrlx);
+          this.router.navigate(['/login']);
         }, 1 * 60 * 1000); // Auto Logoff after 1 mins
         // login successful so redirect to return url
-        // this.router.navigateByUrl(returnUrlx);
+        this.router.navigateByUrl(returnUrlx);
         // this.router.navigateByUrl(this.returnUrl);
       } else {
         console.log('Inside LoginComponent ... ' + data.msg);
