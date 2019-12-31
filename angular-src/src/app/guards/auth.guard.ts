@@ -21,10 +21,10 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       console.log('Inside AuthGuard ... You need to Login to access this page');
-      this.flashMessage.show('Login to access this page', {
-        cssClass: 'alert-danger',
-        timeout: 5000
-      });
+      // this.flashMessage.show('Login to access this page', {
+      //   cssClass: 'alert-danger',
+      //   timeout: 5000
+      // });
       this.router.navigate(['/login'], {
         queryParams: {
           returnUrl: state.url

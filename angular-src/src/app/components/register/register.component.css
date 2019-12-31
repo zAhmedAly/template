@@ -5,8 +5,34 @@
 
 .form-register {
   padding: 20px;
-  background-color: darkslategrey;
   border-radius: 5px;
+}
+
+img {
+  width: 70%;
+}
+
+.showcase {
+  position: relative;
+  background: url('../../../assets/img/showcase.jpg') no-repeat center
+    center/cover;
+  min-height: 75vh;
+  color: #fff;
+}
+.showcase-inner {
+  /* text-align: center; */
+  padding-top: 10%;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+}
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (min-width: 1370px) {

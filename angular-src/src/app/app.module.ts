@@ -17,11 +17,29 @@ import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { BootcampsComponent } from './components/bootcamps/bootcamps.component';
+import { ListBootcampComponent } from './components/bootcamp/list-bootcamp/list-bootcamp.component';
+import { AddBootcampComponent } from './components/bootcamp/add-bootcamp/add-bootcamp.component';
+import { UpdBootcampComponent } from './components/bootcamp/upd-bootcamp/upd-bootcamp.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+
+  { path: 'bootcamps', component: BootcampsComponent },
+  { path: 'list-bootcamp/:id', component: ListBootcampComponent },
+  {
+    path: 'add-bootcamp',
+    component: AddBootcampComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'upd-bootcamp/:id',
+    component: UpdBootcampComponent,
+    canActivate: [AuthGuard]
+  },
+
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -38,7 +56,11 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    BootcampsComponent,
+    ListBootcampComponent,
+    AddBootcampComponent,
+    UpdBootcampComponent
   ],
   imports: [
     BrowserModule,

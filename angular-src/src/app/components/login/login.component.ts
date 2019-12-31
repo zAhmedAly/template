@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         const returnUrlx = localStorage.getItem('returnUrl');
         console.log('onLoginSubmit authenticateUser returnUrlx = ', returnUrlx);
 
-        const time_to_login = Date.now() + 300; // 5 min
+        const time_to_login = Date.now() + 60; // 5 min
         localStorage.setItem('timer', JSON.stringify(time_to_login));
         console.log('Inside LoginComponent ... ' + data.msg);
 
@@ -79,14 +79,14 @@ export class LoginComponent implements OnInit {
           console.log('Inside LoginComponent setTimeout ... Auto Logout');
 
           this.authService.logout();
-          this.flashMessage.show('Your session has expired', {
+          this.flashMessage.show('Your login session has expired', {
             cssClass: 'alert-warning',
             timeout: 10000
           });
-          this.router.navigate(['/']);
+          this.router.navigateByUrl(returnUrlx);
         }, 1 * 60 * 1000); // Auto Logoff after 1 mins
         // login successful so redirect to return url
-        this.router.navigateByUrl(returnUrlx);
+        // this.router.navigateByUrl(returnUrlx);
         // this.router.navigateByUrl(this.returnUrl);
       } else {
         console.log('Inside LoginComponent ... ' + data.msg);
