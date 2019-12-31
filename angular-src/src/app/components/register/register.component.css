@@ -4,7 +4,7 @@
 }
 
 .form-register {
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 5px;
 }
 
@@ -21,7 +21,7 @@ img {
 }
 .showcase-inner {
   /* text-align: center; */
-  padding-top: 10%;
+  padding-top: 5%;
   height: 100%;
   width: 80%;
   margin: auto;
@@ -37,6 +37,6 @@ img {
 
 @media screen and (min-width: 1370px) {
   .container {
-    width: 50%;
+    width: 60%;
   }
 }
