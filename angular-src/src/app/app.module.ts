@@ -22,6 +22,12 @@ import { ListBootcampComponent } from './components/bootcamp/list-bootcamp/list-
 import { AddBootcampComponent } from './components/bootcamp/add-bootcamp/add-bootcamp.component';
 import { UpdBootcampComponent } from './components/bootcamp/upd-bootcamp/upd-bootcamp.component';
 import { ManageBootcampComponent } from './components/bootcamp/manage-bootcamp/manage-bootcamp.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { AddReviewComponent } from './components/review/add-review/add-review.component';
+import { UpdReviewComponent } from './components/review/upd-review/upd-review.component';
+import { CoursesComponent } from './components/courses/courses.component';
+import { AddCourseComponent } from './components/course/add-course/add-course.component';
+import { UpdCourseComponent } from './components/course/upd-course/upd-course.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,20 +35,28 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'bootcamps', component: BootcampsComponent },
-  { path: 'list-bootcamp/:id', component: ListBootcampComponent },
+  { path: 'list-bootcamp/:bootcampId', component: ListBootcampComponent },
+
   {
     path: 'add-bootcamp',
     component: AddBootcampComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'upd-bootcamp/:id',
+    path: 'upd-bootcamp/:bootcampId',
     component: UpdBootcampComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'manage-bootcamp/:id',
+    path: 'manage-bootcamp/:bootcampId',
     component: ManageBootcampComponent,
+    canActivate: [AuthGuard]
+  },
+
+  { path: 'reviews/:bootcampId', component: ReviewsComponent },
+  {
+    path: 'add-review/:bootcampId',
+    component: AddReviewComponent,
     canActivate: [AuthGuard]
   },
 
@@ -67,7 +81,13 @@ const appRoutes: Routes = [
     ListBootcampComponent,
     AddBootcampComponent,
     UpdBootcampComponent,
-    ManageBootcampComponent
+    ManageBootcampComponent,
+    ReviewsComponent,
+    AddReviewComponent,
+    UpdReviewComponent,
+    CoursesComponent,
+    AddCourseComponent,
+    UpdCourseComponent
   ],
   imports: [
     BrowserModule,

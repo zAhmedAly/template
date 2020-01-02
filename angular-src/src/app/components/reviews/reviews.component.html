@@ -1,0 +1,50 @@
+<section class="bootcamp mt-3" *ngIf="bootcampName">
+  <!-- <div class="container"> -->
+  <div class="row">
+    <!-- Main col -->
+    <div class="col-md-8">
+      <a
+        [routerLink]="['/list-bootcamp', bootcampId]"
+        class="btn btn-secondary mb-4"
+        ><i class="fa fa-chevron-left"></i> Bootcamp Info</a
+      >
+      <h4 class="mb-4 text-dark">{{ bootcampName }} Reviews</h4>
+      <!-- Reviews -->
+      <div class="card mb-3" *ngFor="let review of reviews">
+        <h5 class="card-header bg-primary text-white">{{ review.title }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">
+            Rating: <span class="text-success">{{ review.rating }}</span>
+          </h5>
+          <p class="card-text">
+            {{ review.text }}
+          </p>
+          <p class="text-muted">Writtern By {{ review.user.name }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Sidebar -->
+    <div class="col-md-4">
+      <!-- Image -->
+      <img
+        src="../../../../assets/img/image_1.jpg"
+        class="img-thumbnail"
+        alt=""
+      />
+      <!-- Rating -->
+      <h4 class="text-center my-2">
+        <span class="badge badge-secondary badge-success rounded-circle p-3"
+          >8.8</span
+        >
+        Rating
+      </h4>
+      <!-- Buttons -->
+      <a
+        [routerLink]="['/add-review', bootcampId]"
+        class="btn btn-dark btn-block my-3"
+        ><i class="fas fa-pencil-alt"></i> Review This Bootcamp</a
+      >
+    </div>
+  </div>
+  <!-- </div> -->
+</section>

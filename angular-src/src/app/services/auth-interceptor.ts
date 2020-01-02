@@ -37,7 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
     authRequest.headers.set('Content-Type', 'application/json');
     authRequest.headers.set('Authorization', authToken);
 
-    return next.handle(authRequest);
+    //return next.handle(authRequest);
     //.pipe(
     //   tap(
     //     (event: HttpEvent<any>) => {
@@ -66,28 +66,28 @@ export class AuthInterceptor implements HttpInterceptor {
     //   )
     // );
 
-    // return next.handle(authRequest).pipe(
-    //   tap((event: HttpEvent<any>) => {
-    //     if (event instanceof HttpResponse) {
-    //       // do stuff with response if you want
-    //       console.log('event instanceof HttpResponse = ', event);
-    //     }
-    //   }),
-    //   catchError(response => {
-    //     if (response instanceof HttpErrorResponse) {
-    //       console.log('err instanceof HttpErrorResponse = ', response);
-    //       if (response.status === 401) {
-    //         console.log('401 UnAuthorized Request = ', response);
-    //         this.authService.logout();
-    //         this.flashMessage.show('You are logged out', {
-    //           cssClass: 'alert-danger',
-    //           timeout: 15000
-    //         });
-    //         this.router.navigate(['/login']);
-    //       }
-    //     }
-    //     return throwError(response);
-    //   })
-    // );
+    return next.handle(authRequest).pipe(
+      tap((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          // do stuff with response if you want
+          // console.log('event instanceof HttpResponse = ', event);
+        }
+      }),
+      catchError(response => {
+        if (response instanceof HttpErrorResponse) {
+          // console.log('err instanceof HttpErrorResponse = ', response);
+          if (response.status === 401) {
+            console.log('401 UnAuthorized Request = ', response.error.error);
+            this.authService.logout();
+            this.flashMessage.show(response.error.error, {
+              cssClass: 'alert-danger',
+              timeout: 3000
+            });
+            this.router.navigate(['/login']);
+          }
+        }
+        return throwError(response);
+      })
+    );
   }
 }

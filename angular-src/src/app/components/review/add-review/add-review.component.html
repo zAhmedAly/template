@@ -1,0 +1,63 @@
+<section class="mt-3">
+  <div class="row">
+    <div class="col-md-8 m-auto">
+      <div class="card py-2 px-4">
+        <div class="card-body">
+          <a
+            [routerLink]="['/list-bootcamp', bootcampId]"
+            class="btn btn-secondary mb-4"
+            ><i class="fa fa-chevron-left"></i> Bootcamp Info</a
+          >
+
+          <h5 class="mb-2">DevWorks Bootcamp</h5>
+          <h5 class="text-primary mb-4">Write a Review</h5>
+          <p>
+            You must have attended and graduated this bootcamp to review
+          </p>
+          <form (submit)="onReviewSubmit()">
+            <div class="form-group">
+              <label for="rating"
+                >Rating: <span class="text-primary">8</span></label
+              >
+              <input
+                type="range"
+                class="custom-range"
+                min="1"
+                max="10"
+                step="1"
+                value="8"
+                name="rating"
+                [(ngModel)]="rating"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                name="title"
+                [(ngModel)]="title"
+                class="form-control"
+                placeholder="Review title"
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                name="review"
+                [(ngModel)]="review"
+                rows="10"
+                class="form-control"
+                placeholder="Your review"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <input
+                type="submit"
+                value="Submit Review"
+                class="btn btn-primary btn-block"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
