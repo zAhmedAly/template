@@ -28,6 +28,8 @@ import { UpdReviewComponent } from './components/review/upd-review/upd-review.co
 import { CoursesComponent } from './components/courses/courses.component';
 import { AddCourseComponent } from './components/course/add-course/add-course.component';
 import { UpdCourseComponent } from './components/course/upd-course/upd-course.component';
+import { BootcampsService } from './services/bootcamps.service';
+import { ReviewsService } from './services/reviews.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -57,6 +59,11 @@ const appRoutes: Routes = [
   {
     path: 'add-review/:bootcampId',
     component: AddReviewComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'upd-review/:bootcampId',
+    component: UpdReviewComponent,
     canActivate: [AuthGuard]
   },
 
@@ -100,6 +107,8 @@ const appRoutes: Routes = [
     ValidateService,
     AuthService,
     AuthGuard,
+    BootcampsService,
+    ReviewsService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

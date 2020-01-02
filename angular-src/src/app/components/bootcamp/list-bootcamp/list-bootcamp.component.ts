@@ -22,6 +22,7 @@ export class ListBootcampComponent implements OnInit {
   bootcampName: string = null;
   bootcampDesc: string = null;
   averageCost: number = null;
+  averageRating: any;
   housing: boolean = false;
   jobAssistance: boolean = false;
   jobGuarantee: boolean = false;
@@ -52,6 +53,25 @@ export class ListBootcampComponent implements OnInit {
         this.isLoading = false;
 
         this.bootcamp = bootcamp.data;
+        console.log(
+          'this.bootcamp.averageRating = ',
+          this.bootcamp.averageRating
+        );
+        console.log(
+          'Number(this.bootcamp.averageRating) = ',
+          Number(this.bootcamp.averageRating)
+        );
+
+        console.log(
+          'Number(this.bootcamp.averageRating).toFixed(1) = ',
+          Number(this.bootcamp.averageRating).toFixed(1)
+        );
+
+        const averageRating = Number(this.bootcamp.averageRating)
+          ? Number(this.bootcamp.averageRating).toFixed(1)
+          : 0;
+
+        this.averageRating = averageRating;
 
         console.log('ListBootcampComponent this.bootcamp = ', this.bootcamp);
 

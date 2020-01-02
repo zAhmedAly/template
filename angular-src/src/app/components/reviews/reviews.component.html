@@ -11,7 +11,21 @@
       <h4 class="mb-4 text-dark">{{ bootcampName }} Reviews</h4>
       <!-- Reviews -->
       <div class="card mb-3" *ngFor="let review of reviews">
-        <h5 class="card-header bg-primary text-white">{{ review.title }}</h5>
+        <h5 class="card-header bg-primary text-white">
+          {{ review.title }}
+
+          <a href="http://" class="float-right btn btn-link text-white">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+          <a
+            [routerLink]="['/upd-review', bootcampId]"
+            routerLinkActive="router-link-active"
+            class="float-right btn btn-link text-white"
+            style="margin-left: 2rem;"
+          >
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+        </h5>
         <div class="card-body">
           <h5 class="card-title">
             Rating: <span class="text-success">{{ review.rating }}</span>
@@ -33,9 +47,9 @@
       />
       <!-- Rating -->
       <h4 class="text-center my-2">
-        <span class="badge badge-secondary badge-success rounded-circle p-3"
-          >8.8</span
-        >
+        <span class="badge badge-secondary badge-success rounded-circle p-3">{{
+          averageRating || 'No'
+        }}</span>
         Rating
       </h4>
       <!-- Buttons -->

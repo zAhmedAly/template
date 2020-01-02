@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ReviewsService {
   private apiUrl = 'http://localhost:5000/api/v1';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getReviews(bootcampId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/bootcamps/${bootcampId}/reviews`);
@@ -19,9 +20,17 @@ export class ReviewsService {
   }
 
   addReview(bootcampId: string, newReview: any): Observable<any> {
+    const token = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
     return this.http.post(
       `${this.apiUrl}/bootcamps/${bootcampId}/reviews`,
-      newReview
+      newReview,
+      httpOptions
     );
   }
 }

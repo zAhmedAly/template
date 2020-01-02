@@ -33,11 +33,15 @@ export class AuthInterceptor implements HttpInterceptor {
     //   headers: req.headers.set('Authorization', authToken)
     // });
 
-    const authRequest = req.clone();
-    authRequest.headers.set('Content-Type', 'application/json');
-    authRequest.headers.set('Authorization', authToken);
+    console.log('AuthInterceptor intercept authToken = ', authToken);
 
-    //return next.handle(authRequest);
+    const authRequest = req.clone();
+    // authRequest.headers.set('Content-Type', 'application/json');
+    authRequest.headers.set('Authorization', 'Bearer ' + authToken);
+
+    console.log('AuthInterceptor intercept authRequest = ', authRequest);
+
+    // return next.handle(authRequest);
     //.pipe(
     //   tap(
     //     (event: HttpEvent<any>) => {
@@ -70,14 +74,23 @@ export class AuthInterceptor implements HttpInterceptor {
       tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           // do stuff with response if you want
-          // console.log('event instanceof HttpResponse = ', event);
+          console.log(
+            'AuthInterceptor event instanceof HttpResponse = ',
+            event
+          );
         }
       }),
       catchError(response => {
         if (response instanceof HttpErrorResponse) {
-          // console.log('err instanceof HttpErrorResponse = ', response);
+          console.log(
+            'AuthInterceptor err instanceof HttpErrorResponse = ',
+            response
+          );
           if (response.status === 401) {
-            console.log('401 UnAuthorized Request = ', response.error.error);
+            console.log(
+              'AuthInterceptor 401 UnAuthorized Request = ',
+              response.error.error
+            );
             this.authService.logout();
             this.flashMessage.show(response.error.error, {
               cssClass: 'alert-danger',
@@ -85,8 +98,18 @@ export class AuthInterceptor implements HttpInterceptor {
             });
             this.router.navigate(['/login']);
           }
+          if (response.status === 400) {
+            console.log(
+              'AuthInterceptor 400 UnAuthorized Request = ',
+              response.error.error
+            );
+            this.flashMessage.show(response.error.error, {
+              cssClass: 'alert-danger',
+              timeout: 3000
+            });
+          }
         }
-        return throwError(response);
+        return throwError(response.error.error);
       })
     );
   }

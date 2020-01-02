@@ -8,13 +8,13 @@
       </p>
       <form class="form-signin" (submit)="onLoginSubmit()">
         <div class="form-group">
-          <label for="Username">Username</label>
+          <label for="email">Username</label>
           <input
-            type="text"
+            type="email"
             class="form-control"
-            placeholder="Enter Username"
-            [(ngModel)]="username"
-            name="username"
+            placeholder="user@example.com"
+            [(ngModel)]="email"
+            name="email"
           />
         </div>
         <div class="form-group">
@@ -62,13 +62,13 @@
       </h4>
       <form class="form-signin" (submit)="onLoginSubmit()">
         <div class="form-group">
-          <label for="Username">Username</label>
+          <label for="email">email</label>
           <input
             type="text"
             class="form-control"
-            placeholder="Enter Username"
-            [(ngModel)]="username"
-            name="username"
+            placeholder="Enter email"
+            [(ngModel)]="email"
+            name="email"
           />
         </div>
         <div class="form-group">

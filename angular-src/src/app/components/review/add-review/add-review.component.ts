@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewsService } from 'app/services/reviews.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-add-review',
@@ -19,6 +20,7 @@ export class AddReviewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
     private reviewsService: ReviewsService,
     private flashMessage: FlashMessagesService
   ) {}
@@ -30,12 +32,14 @@ export class AddReviewComponent implements OnInit {
     });
   }
   onReviewSubmit() {
+    const userInfo = JSON.parse(this.authService.loadUserInfo());
+
     const newReview = {
       title: this.title,
       text: this.review,
       rating: this.rating,
       bootcamp: this.bootcampId,
-      user: this.bootcampId
+      user: userInfo.id
     };
 
     console.log('newReview =', newReview);

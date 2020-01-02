@@ -94,8 +94,15 @@
               <h5 class="card-title mb-3">
                 <a [routerLink]="['/list-bootcamp', bootcamp.id]"
                   >{{ bootcamp.name }}
-                  <span class="float-right badge badge-success">8.8</span></a
-                >
+                </a>
+                <a [routerLink]="['/reviews', bootcamp.id]">
+                  <span class="float-right badge badge-success">
+                    {{ bootcamp.averageRating || '0.0' }}</span
+                  >
+                </a>
+                <span class="float-right badge text-muted">
+                  {{ bootcamp.reviewCount }} Reviews
+                </span>
               </h5>
               <h5>
                 <span class="badge badge-secondary mb-3"

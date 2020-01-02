@@ -25,6 +25,9 @@ export class BootcampsComponent implements OnInit {
 
         for (let i in this.bootcamps) {
           this.bootcamps[i].careerList = '';
+          this.bootcamps[i].averageRating = this.bootcamps[i].averageRating
+            ? this.bootcamps[i].averageRating.toFixed(1)
+            : '';
           for (let j in this.bootcamps[i].careers) {
             this.bootcamps[i].careerList += this.bootcamps[i].careers[j] + ', ';
           }

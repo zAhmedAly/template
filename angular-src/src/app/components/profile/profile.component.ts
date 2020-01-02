@@ -13,14 +13,17 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     localStorage.setItem('returnUrl', '/profile');
-    this.authService.getProfile().subscribe(
+    const userInfo = JSON.parse(this.authService.loadUserInfo());
+    // console.log('ProfileComponent ngOnInit loadUserInfo userInfo = ', userInfo);
+
+    this.authService.getProfile(userInfo.id).subscribe(
       profile => {
-        // console.log(profile);
+        // console.log('ProfileComponent ngOnInit getProfile profile = ', profile);
         const user = {
           id: profile.result.id,
           name: profile.result.name,
-          username: profile.result.username,
-          email: profile.result.email
+          email: profile.result.email,
+          role: profile.result.role
         };
         this.user = user;
       },

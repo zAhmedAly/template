@@ -8,36 +8,32 @@ export class AuthService {
   authToken: any;
   user: any;
   private jwtHelper: JwtHelperService = new JwtHelperService();
-  private apiUrl = 'http://localhost:3000/users';
+  private apiUrl = 'http://localhost:5000/api/v1';
 
   constructor(private http: HttpClient) {
     // this.isDev = true;  // Change to false before deployment
   }
 
   registerUser(user) {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post<AuthData>(`${this.apiUrl}/register`, user, {
-      headers: headers
-    });
+    return this.http.post<AuthData>(`${this.apiUrl}/auth/register`, user);
   }
 
   authenticateUser(user) {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post<AuthData>(`${this.apiUrl}/authenticate`, user);
+    return this.http.post<AuthData>(`${this.apiUrl}/auth/login`, user);
   }
 
-  getProfile() {
-    this.loadToken();
+  getProfile(userId: String) {
+    const token = this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: this.authToken
+        Authorization: 'Bearer ' + token
       })
     };
-
-    return this.http.get<AuthData>(`${this.apiUrl}/profile`, httpOptions);
+    return this.http.get<AuthData>(
+      `${this.apiUrl}/users/${userId}`,
+      httpOptions
+    );
   }
 
   storeUserData(token, user) {
@@ -51,6 +47,12 @@ export class AuthService {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
     return this.authToken;
+  }
+
+  loadUserInfo() {
+    const user = localStorage.getItem('user');
+    this.user = user;
+    return this.user;
   }
 
   loggedIn() {

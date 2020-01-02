@@ -9,7 +9,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: String;
+  email: String;
   password: String;
   returnUrl: string;
   tokenTimer: any;
@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    if (!this.username || !this.password) {
-      console.log('inside onLoginSubmit --- Empty Username or Password');
-      this.flashMessage.show('Enter Username and Password', {
+    if (!this.email || !this.password) {
+      console.log('inside onLoginSubmit --- Empty Email or Password');
+      this.flashMessage.show('Enter Email and Password', {
         cssClass: 'alert-danger',
         timeout: 5000
       });
@@ -50,18 +50,22 @@ export class LoginComponent implements OnInit {
     }
 
     const user = {
-      username: this.username,
+      email: this.email,
       password: this.password
     };
 
     this.authService.authenticateUser(user).subscribe(data => {
+      console.log(
+        'LoginComponent onLoginSubmit authenticateUser data = ',
+        data
+      );
       if (data.success) {
         const token = data.result.token;
         const user = {
           id: data.result.id,
           name: data.result.name,
-          username: data.result.username,
-          email: data.result.email
+          email: data.result.email,
+          role: data.result.role
         };
         this.authService.storeUserData(token, user);
         const returnUrlx = localStorage.getItem('returnUrl');

@@ -11,6 +11,7 @@ export class ReviewsComponent implements OnInit {
   bootcampId: string;
   reviews: any;
   bootcampName: string;
+  averageRating: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,9 @@ export class ReviewsComponent implements OnInit {
       console.log('ReviewsComponent getReviews = ', reviews);
       if (reviews.success) {
         this.bootcampName = reviews.bootcampName;
+        this.averageRating = reviews.averageRating
+          ? reviews.averageRating.toFixed(1)
+          : '';
         this.reviews = reviews.data;
         console.log(
           'ReviewsComponent getReviews this.reviews = ',

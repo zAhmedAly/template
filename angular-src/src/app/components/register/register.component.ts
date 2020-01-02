@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   name: String;
-  username: String;
   email: String;
   password: String;
 
@@ -28,7 +27,6 @@ export class RegisterComponent implements OnInit {
     const user = {
       name: this.name,
       email: this.email,
-      username: this.username,
       password: this.password
     };
 
@@ -52,6 +50,10 @@ export class RegisterComponent implements OnInit {
 
     // Register user
     this.authService.registerUser(user).subscribe(data => {
+      console.log(
+        'RegisterComponent onRegisterSubmit registerUser data = ',
+        data
+      );
       if (data.success) {
         this.flashMessage.show(data.msg, {
           cssClass: 'alert-success',
