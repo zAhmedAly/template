@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewsService } from 'app/services/reviews.service';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-reviews',
@@ -12,10 +13,14 @@ export class ReviewsComponent implements OnInit {
   reviews: any;
   bootcampName: string;
   averageRating: number;
+  loggedInUserId: string;
+
+  reviewEnabled: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
-    private reviewsService: ReviewsService
+    private reviewsService: ReviewsService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -36,6 +41,14 @@ export class ReviewsComponent implements OnInit {
           'ReviewsComponent getReviews this.reviews = ',
           this.reviews
         );
+        const userInfo =
+          JSON.parse(this.authService.loadUserInfo()) || 'No user data';
+        this.loggedInUserId = userInfo.id;
+        this.reviews.forEach(review => {
+          if (review.user._id === userInfo.id) {
+            this.reviewEnabled = false;
+          }
+        });
       }
     });
   }

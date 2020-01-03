@@ -103,7 +103,7 @@ export class AuthInterceptor implements HttpInterceptor {
               'AuthInterceptor 400 UnAuthorized Request = ',
               response.error.error
             );
-            this.flashMessage.show(response.error.error, {
+            this.flashMessage.show('You already reviewed this bootcamp', {
               cssClass: 'alert-danger',
               timeout: 3000
             });

@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // get return url from route parameters or default to '/'
     this.returnUrl =
-      this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+      this.route.snapshot.queryParams['returnUrl'] ||
+      localStorage.getItem('returnUrl') ||
+      '/dashboard';
     localStorage.setItem('returnUrl', this.returnUrl);
     console.log('LoginComponent ngOnInit this.returnUrl = ', this.returnUrl);
 

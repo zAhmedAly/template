@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { BootcampsService } from 'app/services/bootcamps.service';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-list-bootcamp',
@@ -16,6 +17,7 @@ export class ListBootcampComponent implements OnInit {
   bootcamp: any;
   bootcampCourses: any;
   bootcampReviews: any;
+  bootcampReviewCount: any;
 
   avgCourseCostText = 'Average Course Cost: ';
 
@@ -31,9 +33,12 @@ export class ListBootcampComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  reviewEnabled: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
-    private bootcampsService: BootcampsService
+    private bootcampsService: BootcampsService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -53,19 +58,6 @@ export class ListBootcampComponent implements OnInit {
         this.isLoading = false;
 
         this.bootcamp = bootcamp.data;
-        console.log(
-          'this.bootcamp.averageRating = ',
-          this.bootcamp.averageRating
-        );
-        console.log(
-          'Number(this.bootcamp.averageRating) = ',
-          Number(this.bootcamp.averageRating)
-        );
-
-        console.log(
-          'Number(this.bootcamp.averageRating).toFixed(1) = ',
-          Number(this.bootcamp.averageRating).toFixed(1)
-        );
 
         const averageRating = Number(this.bootcamp.averageRating)
           ? Number(this.bootcamp.averageRating).toFixed(1)
@@ -78,10 +70,6 @@ export class ListBootcampComponent implements OnInit {
         lng = Number(this.bootcamp.location.coordinates[0]);
         lat = Number(this.bootcamp.location.coordinates[1]);
 
-        console.log('this.lng = ', this.lng);
-
-        console.log('this.lat = ', this.lat);
-
         this.bootcampName = this.bootcamp.name;
         this.bootcampDesc = this.bootcamp.description;
         this.averageCost = this.bootcamp.averageCost;
@@ -92,16 +80,32 @@ export class ListBootcampComponent implements OnInit {
         slug = this.bootcamp.slug;
 
         this.bootcampCourses = this.bootcamp.courses;
-        this.bootcampReviews = this.bootcamp.reviewCount;
+        this.bootcampReviewCount = this.bootcamp.reviewCount;
+        this.bootcampReviews = this.bootcamp.reviews;
+
+        const userInfo =
+          JSON.parse(this.authService.loadUserInfo()) || 'No user data';
+
+        this.bootcampReviews.forEach(review => {
+          if (review.user === userInfo.id) {
+            this.reviewEnabled = false;
+          }
+        });
 
         console.log(
           'ListBootcampComponent this.bootcampCourses = ',
           this.bootcampCourses
         );
 
-        console.log('lng = ', lng);
+        console.log(
+          'ListBootcampComponent this.bootcampReviewCount = ',
+          this.bootcampReviewCount
+        );
 
-        console.log('lat = ', lat);
+        console.log(
+          'ListBootcampComponent this.bootcampReviews = ',
+          this.bootcampReviews
+        );
 
         let mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
         mapboxgl.accessToken = environment.mapbox.accessToken;
