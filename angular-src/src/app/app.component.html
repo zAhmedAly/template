@@ -1,5 +1,22 @@
 <app-navbar></app-navbar>
+<!-- <div *ngIf="showLoadingIndicator" class="spinner"></div> -->
+
 <div class="container">
   <flash-messages></flash-messages>
   <router-outlet></router-outlet>
+  <!-- <div *ngIf="showLoadingIndicator" class="spinner"></div> -->
+  <div class="lds-spinner" *ngIf="showLoadingIndicator">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>

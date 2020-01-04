@@ -1,3 +1,4 @@
+import { BootcampsListResolverService } from './services/bootcampsList-resolver.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +37,11 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
-  { path: 'bootcamps', component: BootcampsComponent },
+  {
+    path: 'bootcamps',
+    component: BootcampsComponent,
+    resolve: { bootcampsList: BootcampsListResolverService }
+  },
   { path: 'list-bootcamp/:bootcampId', component: ListBootcampComponent },
 
   {
@@ -100,7 +105,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes), // { enableTracing: true }),
     FlashMessagesModule.forRoot()
   ],
   providers: [
@@ -108,6 +113,7 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuard,
     BootcampsService,
+    BootcampsListResolverService,
     ReviewsService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

@@ -1,6 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {
+  Event,
+  Router,
+  ActivatedRoute,
+  NavigationStart,
+  NavigationEnd,
+  NavigationError,
+  NavigationCancel
+} from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
@@ -8,15 +16,35 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   returnUrl: string;
+  showLoadingIndicator = true;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    // Subscribe to the router events observable
+    this.router.events.subscribe((routerEvent: Event) => {
+      // On NavigationStart, set showLoadingIndicator to ture
+      if (routerEvent instanceof NavigationStart) {
+        this.showLoadingIndicator = true;
+      }
+
+      // On NavigationEnd or NavigationError or NavigationCancel
+      // set showLoadisngIndicator to false
+      if (
+        routerEvent instanceof NavigationEnd ||
+        routerEvent instanceof NavigationError ||
+        routerEvent instanceof NavigationCancel
+      ) {
+        this.showLoadingIndicator = false;
+      }
+    });
+  }
+
   ngOnInit() {
     // get return url from route parameters or default to '/'
     this.returnUrl = localStorage.getItem('returnUrl') || '/dashboard';
