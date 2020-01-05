@@ -70,47 +70,48 @@ export class AuthInterceptor implements HttpInterceptor {
     //   )
     // );
 
-    return next.handle(authRequest).pipe(
-      tap((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          // do stuff with response if you want
-          console.log(
-            'AuthInterceptor event instanceof HttpResponse = ',
-            event
-          );
-        }
-      }),
-      catchError(response => {
-        if (response instanceof HttpErrorResponse) {
-          console.log(
-            'AuthInterceptor err instanceof HttpErrorResponse = ',
-            response
-          );
-          if (response.status === 401) {
-            console.log(
-              'AuthInterceptor 401 UnAuthorized Request = ',
-              response.error.error
-            );
-            this.authService.logout();
-            this.flashMessage.show(response.error.error, {
-              cssClass: 'alert-danger',
-              timeout: 3000
-            });
-            this.router.navigate(['/login']);
-          }
-          if (response.status === 400) {
-            console.log(
-              'AuthInterceptor 400 UnAuthorized Request = ',
-              response.error.error
-            );
-            this.flashMessage.show('You already reviewed this bootcamp', {
-              cssClass: 'alert-danger',
-              timeout: 3000
-            });
-          }
-        }
-        return throwError(response.error.error);
-      })
-    );
+    return next.handle(authRequest);
+    // .pipe(
+    //   tap((event: HttpEvent<any>) => {
+    //     if (event instanceof HttpResponse) {
+    //       // do stuff with response if you want
+    //       console.log(
+    //         'AuthInterceptor event instanceof HttpResponse = ',
+    //         event
+    //       );
+    //     }
+    //   }),
+    //   catchError(response => {
+    //     if (response instanceof HttpErrorResponse) {
+    //       console.log(
+    //         'AuthInterceptor err instanceof HttpErrorResponse = ',
+    //         response
+    //       );
+    //       if (response.status === 401) {
+    //         console.log(
+    //           'AuthInterceptor 401 UnAuthorized Request = ',
+    //           response.error.error
+    //         );
+    //         this.authService.logout();
+    //         this.flashMessage.show(response.error.error, {
+    //           cssClass: 'alert-danger',
+    //           timeout: 3000
+    //         });
+    //         this.router.navigate(['/login']);
+    //       }
+    //       if (response.status === 400) {
+    //         console.log(
+    //           'AuthInterceptor 400 UnAuthorized Request = ',
+    //           response.error.error
+    //         );
+    //         this.flashMessage.show('You already reviewed this bootcamp', {
+    //           cssClass: 'alert-danger',
+    //           timeout: 3000
+    //         });
+    //       }
+    //     }
+    //     return throwError(response.error.error);
+    //   })
+    // );
   }
 }
