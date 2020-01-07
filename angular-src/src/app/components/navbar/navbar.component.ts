@@ -22,15 +22,21 @@ export class NavbarComponent implements OnInit {
 
   onLogoutClick() {
     this.returnUrl = localStorage.getItem('returnUrl') || '/';
-    localStorage.setItem('returnUrl', this.returnUrl);
-    console.log('NavbarComponent ngOnInit this.returnUrl = ', this.returnUrl);
 
+    localStorage.setItem('returnUrl', this.returnUrl);
+    console.log(
+      'NavbarComponent onLogoutClick this.returnUrl = ',
+      this.returnUrl
+    );
     this.authService.logout();
+
     this.flashMessage.show('You are now logged out', {
       cssClass: 'alert-success',
       timeout: 3000
     });
-    this.router.navigateByUrl(this.returnUrl);
-    return false;
+    const returnUrlx = localStorage.getItem('returnUrl');
+    console.log('NavbarComponent onLogoutClick returnUrlx = ', returnUrlx);
+
+    this.router.navigateByUrl(returnUrlx);
   }
 }

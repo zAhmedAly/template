@@ -76,11 +76,16 @@ export class AppComponent implements OnInit {
       // Auto Logoff after 1 mins
       console.log('Inside AppComponent ... Auto LogOut');
       this.authService.logout();
+
       this.flashMessage.show('Your session has expired', {
         cssClass: 'alert-warning',
         timeout: 10000
       });
-      this.router.navigateByUrl(this.returnUrl);
     }
+    console.log(
+      'AppComponent ngOnInit before navigateByUrl this.returnUrl = ',
+      this.returnUrl
+    );
+    this.router.navigateByUrl(this.returnUrl);
   }
 }

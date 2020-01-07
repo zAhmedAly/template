@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BootcampsService } from 'app/services/bootcamps.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
@@ -18,7 +18,8 @@ export class BootcampsComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private flashMessage: FlashMessagesService
+    private flashMessage: FlashMessagesService,
+    private router: Router
   ) {
     const resolvedData: [any] | string = this._route.snapshot.data[
       'bootcampsList'
@@ -40,6 +41,9 @@ export class BootcampsComponent implements OnInit {
         cssClass: 'alert-danger',
         timeout: 5000
       });
+      //this.router.navigate(['/']);
+      const returnUrlx = localStorage.getItem('returnUrl');
+      this.router.navigateByUrl(returnUrlx);
     }
   }
 

@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    localStorage.setItem('returnUrl', '/profile');
+    localStorage.setItem('returnUrl', '/dashboard');
     const userInfo = JSON.parse(this.authService.loadUserInfo());
     // console.log(
     //   'DashboardComponent ngOnInit loadUserInfo userInfo = ',

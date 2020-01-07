@@ -4,7 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, empty } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 
@@ -17,10 +17,9 @@ export class BootcampsListResolverService implements Resolve<[any] | string> {
   constructor(private bootscampsService: BootcampsService) {}
   // Resolve interface contains the following one method for which we need to
   // provide implementation. This method calls EmployeeService & returns employee data
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<[any] | string> {
+  resolve(): // route: ActivatedRouteSnapshot,
+  // state: RouterStateSnapshot
+  Observable<[any] | string> {
     return this.bootscampsService
       .getBootcamps()
       .pipe(catchError((err: string) => of(err)));

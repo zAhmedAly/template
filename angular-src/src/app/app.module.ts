@@ -1,4 +1,3 @@
-import { BootcampsListResolverService } from './services/bootcampsList-resolver.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +30,8 @@ import { AddCourseComponent } from './components/course/add-course/add-course.co
 import { UpdCourseComponent } from './components/course/upd-course/upd-course.component';
 import { BootcampsService } from './services/bootcamps.service';
 import { ReviewsService } from './services/reviews.service';
+import { BootcampsListResolverService } from './services/bootcampsList-resolver.service';
+import { ReviewsListResolverService } from './services/reviewsList.resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -60,7 +61,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
 
-  { path: 'reviews/:bootcampId', component: ReviewsComponent },
+  {
+    path: 'reviews/:bootcampId',
+    component: ReviewsComponent,
+    resolve: { reviewsList: ReviewsListResolverService }
+  },
   {
     path: 'add-review/:bootcampId',
     component: AddReviewComponent,
@@ -113,8 +118,9 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuard,
     BootcampsService,
-    BootcampsListResolverService,
     ReviewsService,
+    BootcampsListResolverService,
+    ReviewsListResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
