@@ -19,13 +19,21 @@ img {
   min-height: 75vh;
   color: #fff;
 }
+
 .showcase-inner {
   /* text-align: center; */
   padding-top: 15%;
-  height: 100%;
+  height: 80%;
   width: 80%;
   margin: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -height/2;
+  margin-left: -width/2;
+  /* bring your own prefixes */
+  /* transform: translate(-50%, -50%); */
 }
+
 .dark-overlay {
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
@@ -35,8 +43,17 @@ img {
   height: 100%;
 }
 
-@media screen and (min-width: 1370px) {
+@media only screen and (min-device-width: 768px) {
   .container {
-    width: 55%;
+    width: 50%;
+  }
+  .showcase {
+    position: relative;
+    min-height: 50vh;
+  }
+  .showcase-inner {
+    padding-top: 6%;
+    height: 80%;
+    width: 80%;
   }
 }

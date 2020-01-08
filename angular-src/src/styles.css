@@ -6,8 +6,8 @@ body {
   margin-top: 70px;
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
+  background-color: lightgray;
 }
-
 
 .lds-roller {
   color: official;
@@ -26,13 +26,13 @@ body {
 }
 
 .lds-roller div:after {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #337AB7;
+  background: #337ab7;
   margin: -4px 0 0 -4px;
 }
 

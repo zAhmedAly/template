@@ -1,5 +1,5 @@
 <!-- Latest bootcamps -->
-<section class="browse my-3" *ngIf="bootcamps">
+<section class="browse " *ngIf="bootcamps">
   <!-- <div class="container"> -->
   <div class="row">
     <!-- Sidebar -->
@@ -10,16 +10,30 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" name="miles" placeholder="Miles From" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="miles"
+                  placeholder="Miles From"
+                />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" name="zipcode" placeholder="Zipcode" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="zipcode"
+                  placeholder="Zipcode"
+                />
               </div>
             </div>
           </div>
-          <input type="submit" value="Find Bootcamps" class="btn btn-primary btn-block" />
+          <input
+            type="submit"
+            value="Find Bootcamps"
+            class="btn btn-primary btn-block"
+          />
         </form>
       </div>
       <div class="card card-body mb-4">
@@ -53,7 +67,11 @@
               <option value="2000">$2,000</option>
             </select>
           </div>
-          <input type="submit" value="Find Bootcamps" class="btn btn-primary btn-block " />
+          <input
+            type="submit"
+            value="Find Bootcamps"
+            class="btn btn-primary btn-block "
+          />
         </form>
       </div>
     </div>
@@ -64,12 +82,17 @@
       <div *ngFor="let bootcamp of bootcamps" class="card mb-3">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="../../../assets/img/{{ bootcamp.photo }}" class="card-img" alt="..." />
+            <img
+              src="../../../assets/img/{{ bootcamp.photo }}"
+              class="card-img"
+              alt="..."
+            />
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title mb-3">
-                <a [routerLink]="['/list-bootcamp', bootcamp.id]">{{ bootcamp.name }}
+                <a [routerLink]="['/list-bootcamp', bootcamp.id]"
+                  >{{ bootcamp.name }}
                 </a>
                 <a [routerLink]="['/reviews', bootcamp.id]">
                   <span class="float-right badge text-muted">
@@ -77,10 +100,12 @@
                   </span>
                 </a>
                 <span class="float-right badge badge-success">
-                  {{ bootcamp.averageRating || '0.0' }}</span>
+                  {{ bootcamp.averageRating || '0.0' }}</span
+                >
               </h5>
               <h5>
-                <span class="badge badge-secondary mb-3">{{ bootcamp.location.city }},
+                <span class="badge badge-secondary mb-3"
+                  >{{ bootcamp.location.city }},
                   {{ bootcamp.location.state }}
                 </span>
               </h5>
@@ -110,7 +135,9 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+              >Previous</a
+            >
           </li>
           <li class="page-item active ">
             <a class="page-link" [routerLink]="['/bootcamps']">1</a>
