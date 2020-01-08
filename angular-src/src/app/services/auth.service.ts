@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthData } from 'app/interfaces/auth-data';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -15,11 +21,15 @@ export class AuthService {
   }
 
   registerUser(user) {
-    return this.http.post<AuthData>(`${this.apiUrl}/auth/register`, user);
+    return this.http
+      .post<AuthData>(`${this.apiUrl}/auth/register`, user)
+      .pipe(catchError(this.handleError));
   }
 
   authenticateUser(user) {
-    return this.http.post<AuthData>(`${this.apiUrl}/auth/login`, user);
+    return this.http
+      .post<AuthData>(`${this.apiUrl}/auth/login`, user)
+      .pipe(catchError(this.handleError));
   }
 
   getProfile(userId: String) {
@@ -30,10 +40,9 @@ export class AuthService {
         Authorization: 'Bearer ' + token
       })
     };
-    return this.http.get<AuthData>(
-      `${this.apiUrl}/users/${userId}`,
-      httpOptions
-    );
+    return this.http
+      .get<AuthData>(`${this.apiUrl}/users/${userId}`, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   storeUserData(token, user) {
@@ -76,5 +85,22 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
+  }
+
+  private handleError(errorResponse: HttpErrorResponse) {
+    if (errorResponse.error instanceof ErrorEvent) {
+      console.error(
+        'ReviewsService Client Side Error :',
+        errorResponse.error.message
+      );
+    } else {
+      console.error('ReviewsService Server Side Error :', errorResponse);
+    }
+    // return an observable with a meaningful error message to the end user
+    // return throwError(errorResponse.error.error);
+
+    return throwError(
+      'Problem with the Auth Service, We are notified & working on it. Please try again later.'
+    );
   }
 }

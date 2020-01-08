@@ -28,7 +28,7 @@ export class ReviewsService {
       .pipe(catchError(this.handleError));
   }
 
-  addReview(bootcampId: string, newReview: any): Observable<any> {
+  addReview(bootcampId: string, newReview: any): Observable<any | string> {
     const token = this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -52,11 +52,17 @@ export class ReviewsService {
         errorResponse.error.message
       );
     } else {
-      console.error('ReviewsService Server Side Error :', errorResponse);
+      console.error(
+        'ReviewsService Server Side Error :',
+        errorResponse.error.error
+      );
     }
     // return an observable with a meaningful error message to the end user
+    // return throwError(errorResponse.error.error);
+
     return throwError(
-      'Problem with the Reviews Service, We are notified & working on it. Please try again later.'
+      errorResponse.error.error ||
+        'Problem with the Reviews Service, We are notified & working on it. Please try again later.'
     );
   }
 }

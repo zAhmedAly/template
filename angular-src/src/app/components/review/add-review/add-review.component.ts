@@ -31,6 +31,7 @@ export class AddReviewComponent implements OnInit {
       localStorage.setItem('returnUrl', `/add-review/${this.bootcampId}`);
     });
   }
+
   onReviewSubmit() {
     const userInfo = JSON.parse(this.authService.loadUserInfo());
 
@@ -46,18 +47,27 @@ export class AddReviewComponent implements OnInit {
     this.reviewsService
       .addReview(this.bootcampId, newReview)
       .subscribe(result => {
-        console.log('AddReviewComponent addReview = ', result);
-        if (result.success) {
+        if (typeof result === 'object') {
+          console.log('AddReviewComponent addReview = ', result);
+          // if (result.success) {
           this.bootcampName = result.bootcampName;
           this.reviews = result.data;
           console.log(
             'AddReviewComponent addReview this.reviews = ',
             this.reviews
           );
+          // } else {
+          //   this.flashMessage.show('Error in adding review', {
+          //     cssClass: 'alert-danger',
+          //     timeout: 3000
+          //   });
+          // }
         } else {
-          this.flashMessage.show('Error in adding review', {
+          console.log('ReviewsComponent typeof(resolvedData) ', typeof result);
+          console.log('Inside ReviewsComponent ERROR ... ', result);
+          this.flashMessage.show(result, {
             cssClass: 'alert-danger',
-            timeout: 3000
+            timeout: 5000
           });
         }
       });

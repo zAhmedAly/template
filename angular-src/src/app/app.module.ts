@@ -32,6 +32,7 @@ import { BootcampsService } from './services/bootcamps.service';
 import { ReviewsService } from './services/reviews.service';
 import { BootcampsListResolverService } from './services/bootcampsList-resolver.service';
 import { ReviewsListResolverService } from './services/reviewsList.resolver.service';
+import { BootcampResolverService } from './services/bootcamp.resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,7 +44,11 @@ const appRoutes: Routes = [
     component: BootcampsComponent,
     resolve: { bootcampsList: BootcampsListResolverService }
   },
-  { path: 'list-bootcamp/:bootcampId', component: ListBootcampComponent },
+  {
+    path: 'list-bootcamp/:bootcampId',
+    component: ListBootcampComponent,
+    resolve: { bootcamp: BootcampResolverService }
+  },
 
   {
     path: 'add-bootcamp',
@@ -120,6 +125,7 @@ const appRoutes: Routes = [
     BootcampsService,
     ReviewsService,
     BootcampsListResolverService,
+    BootcampResolverService,
     ReviewsListResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
